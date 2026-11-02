@@ -1,0 +1,130 @@
+{
+  "$id": "https://roomlab.local/contracts/spawn_request_v1.schema.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "additionalProperties": false,
+  "definitions": {
+    "ActionKind": {
+      "enum": [
+        "LOOK",
+        "INSPECT",
+        "MOVE",
+        "SPEAK",
+        "WHISPER",
+        "TAKE",
+        "DROP",
+        "USE",
+        "WAIT",
+        "ASK",
+        "REQUEST_SPAWN",
+        "NO_OP",
+        "SUMMON",
+        "TOOL",
+        "REPORT_PROGRESS",
+        "REPORT_FINAL",
+        "ASK_PARENT",
+        "ASSIGN_TASK",
+        "UPDATE_TASK"
+      ],
+      "type": "string"
+    },
+    "SpawnBudget": {
+      "additionalProperties": false,
+      "properties": {
+        "max_output_tokens_total": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "max_turns": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "ttl_seconds": {
+          "format": "int64",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "max_output_tokens_total",
+        "max_turns",
+        "ttl_seconds"
+      ],
+      "type": "object"
+    },
+    "SpawnType": {
+      "enum": [
+        "TASK_WORKER",
+        "ROOM_PARTICIPANT",
+        "WORLD_ENTITY"
+      ],
+      "type": "string"
+    },
+    "SpawnVisibility": {
+      "enum": [
+        "PARENT_ONLY",
+        "ROOM"
+      ],
+      "type": "string"
+    }
+  },
+  "properties": {
+    "context_handoff_refs": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "display_name": {
+      "type": "string"
+    },
+    "objective": {
+      "type": "string"
+    },
+    "parent_agent_id": {
+      "type": "string"
+    },
+    "request_id": {
+      "type": "string"
+    },
+    "requested_actions": {
+      "items": {
+        "$ref": "#/definitions/ActionKind"
+      },
+      "type": "array"
+    },
+    "requested_budget": {
+      "$ref": "#/definitions/SpawnBudget"
+    },
+    "requested_model_route": {
+      "type": "string"
+    },
+    "requested_visibility": {
+      "$ref": "#/definitions/SpawnVisibility"
+    },
+    "run_id": {
+      "type": "string"
+    },
+    "schema_version": {
+      "type": "string"
+    },
+    "spawn_type": {
+      "$ref": "#/definitions/SpawnType"
+    }
+  },
+  "required": [
+    "context_handoff_refs",
+    "display_name",
+    "objective",
+    "parent_agent_id",
+    "request_id",
+    "requested_actions",
+    "requested_budget",
+    "requested_model_route",
+    "requested_visibility",
+    "run_id",
+    "schema_version",
+    "spawn_type"
+  ],
+  "title": "SpawnRequest",
+  "type": "object",
+  "x-schema-version": "1.0"
+}

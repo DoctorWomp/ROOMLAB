@@ -1,0 +1,189 @@
+{
+  "$id": "https://roomlab.local/contracts/message_v1.schema.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "additionalProperties": false,
+  "definitions": {
+    "AudienceScope": {
+      "enum": [
+        "ROOM_MEMBERS",
+        "DIRECT",
+        "PARENT_ONLY",
+        "LOCATION",
+        "OPERATOR_ONLY",
+        "ACTOR_ONLY",
+        "PUBLIC"
+      ],
+      "type": "string"
+    },
+    "Confidence": {
+      "enum": [
+        "COMMIT",
+        "LEAN",
+        "HELD_OPEN"
+      ],
+      "type": "string"
+    },
+    "LaneOwner": {
+      "enum": [
+        "SOMA_EXPRESSION",
+        "CHARACTER",
+        "READER_HYPOTHETICAL"
+      ],
+      "type": "string"
+    },
+    "Modality": {
+      "enum": [
+        "TEXT",
+        "IMAGE",
+        "MIXED"
+      ],
+      "type": "string"
+    },
+    "OriginKind": {
+      "enum": [
+        "HUMAN",
+        "AGENT",
+        "NARRATOR",
+        "WORLD",
+        "TOOL",
+        "SYSTEM"
+      ],
+      "type": "string"
+    },
+    "ReactionLane": {
+      "additionalProperties": false,
+      "properties": {
+        "owner": {
+          "$ref": "#/definitions/LaneOwner"
+        },
+        "owner_name": {
+          "default": null,
+          "description": "Required when owner is CHARACTER (e.g. \"Arin\").",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "steps": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "owner",
+        "steps"
+      ],
+      "type": "object"
+    },
+    "RenderStatus": {
+      "enum": [
+        "DRAFT",
+        "FINAL"
+      ],
+      "type": "string"
+    }
+  },
+  "properties": {
+    "attachments": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "author_id": {
+      "type": "string"
+    },
+    "author_kind": {
+      "$ref": "#/definitions/OriginKind"
+    },
+    "channel_id": {
+      "type": "string"
+    },
+    "confidence": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/Confidence"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "is_demo": {
+      "default": false,
+      "description": "True when produced by a deterministic Demo (L0) policy. Rendered with a `DEMO` label.",
+      "type": "boolean"
+    },
+    "message_id": {
+      "type": "string"
+    },
+    "modality": {
+      "$ref": "#/definitions/Modality"
+    },
+    "model_id": {
+      "default": null,
+      "description": "Model that actually produced the text, when provider-backed.",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "reaction_lane": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/ReactionLane"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "recipient_ids": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "render_status": {
+      "$ref": "#/definitions/RenderStatus"
+    },
+    "room_id": {
+      "type": "string"
+    },
+    "seq": {
+      "default": 0,
+      "format": "int64",
+      "type": "integer"
+    },
+    "source_event_id": {
+      "type": "string"
+    },
+    "text": {
+      "type": "string"
+    },
+    "visibility": {
+      "$ref": "#/definitions/AudienceScope"
+    }
+  },
+  "required": [
+    "attachments",
+    "author_id",
+    "author_kind",
+    "channel_id",
+    "message_id",
+    "modality",
+    "recipient_ids",
+    "render_status",
+    "room_id",
+    "source_event_id",
+    "text",
+    "visibility"
+  ],
+  "title": "MessageRecord",
+  "type": "object",
+  "x-schema-version": "1.0"
+}

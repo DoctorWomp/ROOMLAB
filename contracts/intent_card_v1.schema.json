@@ -1,0 +1,32 @@
+{
+  "$id": "https://roomlab.local/contracts/intent_card_v1.schema.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "additionalProperties": false,
+  "properties": {
+    "intended_lane": {
+      "type": "string"
+    },
+    "intended_stance": {
+      "type": "string"
+    },
+    "load_bearing_cue": {
+      "type": "string"
+    },
+    "predicted_misread": {
+      "type": "string"
+    },
+    "what_counts_as_hit": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "intended_lane",
+    "intended_stance",
+    "load_bearing_cue",
+    "predicted_misread",
+    "what_counts_as_hit"
+  ],
+  "title": "IntentCard",
+  "type": "object",
+  "x-schema-version": "1.0"
+}

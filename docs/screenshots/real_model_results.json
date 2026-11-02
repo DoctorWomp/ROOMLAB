@@ -1,0 +1,36 @@
+{
+  "when": "2026-11-02T22:55:37.333Z",
+  "model": "gemma4-26b-a4b-uncensored-hauhaucs-balanced",
+  "results": [
+    {
+      "id": "T19 GUI lists actual model ids from /models",
+      "ok": true,
+      "note": "gemma4-26b-a4b-uncensored-hauhaucs-balanced (loaded)"
+    },
+    {
+      "id": "T13 agent created in Foundry (L1, local/default)",
+      "ok": true,
+      "note": ""
+    },
+    {
+      "id": "T20 streamed draft visible while generating",
+      "ok": true,
+      "note": ""
+    },
+    {
+      "id": "T21 real model reply committed with model id label (not DEMO)",
+      "ok": true,
+      "note": "✨ Nova AGENT gemma4-26b-a4b-uncensored-hauhaucs-balanced COMMIT #19 How about calling it 'Sprout'? SOMA (EXPRESSION) 🌿 → ✨"
+    },
+    {
+      "id": "T20 draft cleared after final commit",
+      "ok": true,
+      "note": ""
+    },
+    {
+      "id": "T64 measured latency shown from real calls",
+      "ok": true,
+      "note": "metric n p50 p95 first visible token (ms) 1 45922 45922 total call (ms) 1 48777 48777 completion tokens (provider-reported) 1 709 709"
+    }
+  ]
+}

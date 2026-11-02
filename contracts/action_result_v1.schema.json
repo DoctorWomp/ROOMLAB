@@ -1,0 +1,72 @@
+{
+  "$id": "https://roomlab.local/contracts/action_result_v1.schema.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "additionalProperties": false,
+  "definitions": {
+    "ReasonCode": {
+      "enum": [
+        "OK",
+        "INVALID_SCHEMA",
+        "ACTOR_NOT_ACTIVE",
+        "NOT_MEMBER",
+        "TARGET_UNKNOWN",
+        "NOT_VISIBLE",
+        "CAPABILITY_DENIED",
+        "ACL_DENIED",
+        "STALE_STATE",
+        "WORLD_RULE_DENIED",
+        "BUDGET_EXHAUSTED",
+        "MODEL_UNAVAILABLE",
+        "SPAWN_DEPTH_EXCEEDED",
+        "SPAWN_CAP_REACHED",
+        "UNSAFE_TOOL_DISABLED",
+        "RATE_LIMITED",
+        "PENDING_APPROVAL",
+        "QUEUED"
+      ],
+      "type": "string"
+    }
+  },
+  "properties": {
+    "accepted": {
+      "type": "boolean"
+    },
+    "detail": {
+      "default": null,
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "executed": {
+      "type": "boolean"
+    },
+    "reason_code": {
+      "$ref": "#/definitions/ReasonCode"
+    },
+    "request_id": {
+      "type": "string"
+    },
+    "resolved_at_seq": {
+      "format": "int64",
+      "type": "integer"
+    },
+    "result_event_ids": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    }
+  },
+  "required": [
+    "accepted",
+    "executed",
+    "reason_code",
+    "request_id",
+    "resolved_at_seq",
+    "result_event_ids"
+  ],
+  "title": "ActionResult",
+  "type": "object",
+  "x-schema-version": "1.0"
+}

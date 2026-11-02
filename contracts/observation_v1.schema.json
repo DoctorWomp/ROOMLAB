@@ -1,0 +1,96 @@
+{
+  "$id": "https://roomlab.local/contracts/observation_v1.schema.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "additionalProperties": false,
+  "definitions": {
+    "ObsChannel": {
+      "enum": [
+        "ROOM_CHAT",
+        "DIRECT",
+        "WORLD_LOCAL",
+        "TASK",
+        "SYSTEM",
+        "REVEAL"
+      ],
+      "type": "string"
+    },
+    "ObsKind": {
+      "enum": [
+        "MESSAGE",
+        "LOCATION_VIEW",
+        "VISIBLE_OBJECT_STATE",
+        "ACTION_SEEN",
+        "SOUND",
+        "ACTION_RESULT",
+        "TASK_BRIEF",
+        "SPAWN_RESULT",
+        "REVEAL",
+        "NARRATION",
+        "KNOWLEDGE_GRANT",
+        "REPORT"
+      ],
+      "type": "string"
+    },
+    "ObsStatus": {
+      "enum": [
+        "OBSERVED",
+        "REPORTED",
+        "INFERRED",
+        "DEGRADED",
+        "MISSING",
+        "EXPIRED",
+        "UNKNOWN"
+      ],
+      "type": "string"
+    }
+  },
+  "properties": {
+    "channel": {
+      "$ref": "#/definitions/ObsChannel"
+    },
+    "data": true,
+    "expires_at_sim_ms": {
+      "format": "int64",
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "kind": {
+      "$ref": "#/definitions/ObsKind"
+    },
+    "observation_id": {
+      "type": "string"
+    },
+    "observed_at_sim_ms": {
+      "format": "int64",
+      "type": "integer"
+    },
+    "observer_id": {
+      "type": "string"
+    },
+    "provenance": {
+      "type": "string"
+    },
+    "source_event_id": {
+      "type": "string"
+    },
+    "status": {
+      "$ref": "#/definitions/ObsStatus"
+    }
+  },
+  "required": [
+    "channel",
+    "data",
+    "kind",
+    "observation_id",
+    "observed_at_sim_ms",
+    "observer_id",
+    "provenance",
+    "source_event_id",
+    "status"
+  ],
+  "title": "Observation",
+  "type": "object",
+  "x-schema-version": "1.0"
+}

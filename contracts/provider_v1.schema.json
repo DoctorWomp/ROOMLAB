@@ -1,0 +1,59 @@
+{
+  "$id": "https://roomlab.local/contracts/provider_v1.schema.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "additionalProperties": false,
+  "definitions": {
+    "ProviderKind": {
+      "enum": [
+        "DEMO",
+        "LOCAL_CONNECTED",
+        "MANAGED_LOCAL",
+        "CLOUD_OPT_IN"
+      ],
+      "type": "string"
+    }
+  },
+  "properties": {
+    "base_url": {
+      "type": "string"
+    },
+    "model_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "provider_kind": {
+      "$ref": "#/definitions/ProviderKind"
+    },
+    "reasoning_allowance_tokens": {
+      "default": 0,
+      "description": "Extra output tokens for models that spend tokens on hidden reasoning (e.g. Gemma 4, Qwen3). Added to each turn's visible-output ceiling; actual usage is still charged to the run budget.",
+      "format": "int64",
+      "type": "integer"
+    },
+    "remote_acknowledged": {
+      "description": "Cloud/remote endpoints must be explicitly acknowledged by the operator.",
+      "type": "boolean"
+    },
+    "temperature": {
+      "format": "float",
+      "type": "number"
+    },
+    "timeout_secs": {
+      "format": "uint64",
+      "minimum": 0.0,
+      "type": "integer"
+    }
+  },
+  "required": [
+    "base_url",
+    "provider_kind",
+    "remote_acknowledged",
+    "temperature",
+    "timeout_secs"
+  ],
+  "title": "ProviderConfig",
+  "type": "object",
+  "x-schema-version": "1.0"
+}

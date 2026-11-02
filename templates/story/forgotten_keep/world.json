@@ -1,0 +1,40 @@
+{
+  "schema_version": "1.0",
+  "world_id": "forgotten_keep",
+  "title": "The Forgotten Keep",
+  "genre": "fantasy-mystery",
+  "seed": 4201,
+  "start_location": "courtyard",
+  "inventory_capacity": 4,
+  "locations": [
+    {"id": "courtyard", "name": "Courtyard", "exits": ["great_hall"], "ambient": "Wind rustles through the ruins", "description": "Broken flagstones ring a dry fountain."},
+    {"id": "great_hall", "name": "Great Hall", "exits": ["courtyard", "library", "cellar"], "ambient": "A cold draft moves the banners", "description": "A long table, its chairs pushed back as if everyone left at once."},
+    {"id": "library", "name": "Library", "exits": ["great_hall"], "ambient": "Dust floats in afternoon light", "description": "Shelves sag under books nobody has opened in years."},
+    {"id": "cellar", "name": "Cellar", "exits": ["great_hall"], "ambient": "Water drips slowly", "description": "Barrels and a cracked western wall of loose stones."},
+    {"id": "crypt", "name": "Crypt", "exits": [], "ambient": "The air is still", "description": "Stone coffins in a low vault."}
+  ],
+  "hidden_edges": [
+    {"from": "cellar", "to": "crypt", "door_object_id": "crypt_door", "discover_dc": 12, "known_by": ["mira"]}
+  ],
+  "objects": [
+    {"id": "library_shelf", "name": "dusty shelf", "location": "library", "kind": "FEATURE", "visibility": "VISIBLE", "state": "", "description": "A long shelf thick with dust.", "notice_dc": 9},
+    {"id": "ancient_map", "name": "ancient map", "location": "library", "kind": "DOCUMENT", "visibility": "NOTICEABLE_IF_INSPECTED", "takeable": true, "description": "A brittle map of the keep with a passage marked beneath the cellar.", "found_with": "library_shelf", "known_by": ["mira"],
+     "trace_on_take": {"feature_id": "library_shelf", "state": "clean_rectangle", "cue": "A clean rectangle interrupts the dust on the shelf, as if something lay there until recently."}},
+    {"id": "lantern", "name": "lantern", "location": "great_hall", "kind": "ITEM", "visibility": "VISIBLE", "takeable": true, "description": "An iron lantern with a little oil left."},
+    {"id": "crypt_door", "name": "crypt door", "location": "cellar", "kind": "DOOR", "visibility": "HIDDEN", "state": "LOCKED", "description": "A low iron-bound door behind the loose stones."},
+    {"id": "brass_key", "name": "brass key", "location": "", "kind": "ITEM", "visibility": "VISIBLE", "takeable": true, "description": "A small brass key, green with age.", "unlocks": "crypt_door"}
+  ],
+  "characters": [
+    {"agent_id": "human_01", "location": "courtyard", "perception": 2},
+    {"agent_id": "arin", "location": "great_hall", "abilities": ["summon_familiar"], "spell_slots": 1, "perception": 1},
+    {"agent_id": "vex", "location": "courtyard", "perception": 3},
+    {"agent_id": "mira", "location": "library", "inventory": ["brass_key"], "perception": 2}
+  ],
+  "secret_facts": [
+    {"id": "fact_01", "claim": "Mira carries the brass key to the crypt door and knows the passage behind the cellar's western wall.", "owner_scope": "agent/mira/private"},
+    {"id": "fact_02", "claim": "The ancient map is genuine.", "owner_scope": "world"}
+  ],
+  "sounds": [
+    {"location": "cellar", "description": "a faint metallic scraping", "hidden_source": "A loose iron grate in the crypt shifting in the draft."}
+  ]
+}

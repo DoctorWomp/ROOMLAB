@@ -1,0 +1,140 @@
+{
+  "$id": "https://roomlab.local/contracts/action_request_v1.schema.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "additionalProperties": false,
+  "definitions": {
+    "ActionKind": {
+      "enum": [
+        "LOOK",
+        "INSPECT",
+        "MOVE",
+        "SPEAK",
+        "WHISPER",
+        "TAKE",
+        "DROP",
+        "USE",
+        "WAIT",
+        "ASK",
+        "REQUEST_SPAWN",
+        "NO_OP",
+        "SUMMON",
+        "TOOL",
+        "REPORT_PROGRESS",
+        "REPORT_FINAL",
+        "ASK_PARENT",
+        "ASSIGN_TASK",
+        "UPDATE_TASK"
+      ],
+      "type": "string"
+    },
+    "Confidence": {
+      "enum": [
+        "COMMIT",
+        "LEAN",
+        "HELD_OPEN"
+      ],
+      "type": "string"
+    },
+    "LaneOwner": {
+      "enum": [
+        "SOMA_EXPRESSION",
+        "CHARACTER",
+        "READER_HYPOTHETICAL"
+      ],
+      "type": "string"
+    },
+    "ReactionLane": {
+      "additionalProperties": false,
+      "properties": {
+        "owner": {
+          "$ref": "#/definitions/LaneOwner"
+        },
+        "owner_name": {
+          "default": null,
+          "description": "Required when owner is CHARACTER (e.g. \"Arin\").",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "steps": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "owner",
+        "steps"
+      ],
+      "type": "object"
+    }
+  },
+  "properties": {
+    "action": {
+      "$ref": "#/definitions/ActionKind"
+    },
+    "agent_id": {
+      "type": "string"
+    },
+    "args": {
+      "additionalProperties": true,
+      "default": {},
+      "type": "object"
+    },
+    "based_on_event_seq": {
+      "format": "int64",
+      "type": "integer"
+    },
+    "confidence": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/Confidence"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "message_text": {
+      "default": null,
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "reaction_lane": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/ReactionLane"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "request_id": {
+      "type": "string"
+    },
+    "run_id": {
+      "type": "string"
+    },
+    "schema_version": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "action",
+    "agent_id",
+    "based_on_event_seq",
+    "request_id",
+    "run_id",
+    "schema_version"
+  ],
+  "title": "ActionRequest",
+  "type": "object",
+  "x-schema-version": "1.0"
+}

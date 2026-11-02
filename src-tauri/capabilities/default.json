@@ -1,0 +1,10 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "default",
+  "description": "RoomLab main window. App commands are explicitly allowlisted in Rust (generate_handler!) and validated there; the only plugin permission is the native file-open dialog.",
+  "windows": ["main"],
+  "permissions": [
+    "core:default",
+    "dialog:allow-open"
+  ]
+}

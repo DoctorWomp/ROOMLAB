@@ -1,0 +1,102 @@
+{
+  "when": "2026-11-02T22:56:24.748Z",
+  "exe": "target\\release\\RoomLab.exe",
+  "dataDir": "C:\\Users\\DT_Womp\\AppData\\Local\\Temp\\tmp.2VgZnwZCna",
+  "results": [
+    {
+      "id": "T01 cold launch shows first-run",
+      "ok": true,
+      "note": ""
+    },
+    {
+      "id": "T02 first-run Demo completes",
+      "ok": true,
+      "note": ""
+    },
+    {
+      "id": "Commons: 3 Demo agents respond, DEMO labels + reaction lane visible",
+      "ok": true,
+      "note": ""
+    },
+    {
+      "id": "T05 message ownership labels",
+      "ok": true,
+      "note": "labels: HUMAN,AGENT"
+    },
+    {
+      "id": "T06 Unicode/ZWJ/RTL rendered",
+      "ok": true,
+      "note": ""
+    },
+    {
+      "id": "T07 script/link injection inert in chat",
+      "ok": true,
+      "note": ""
+    },
+    {
+      "id": "T03 create GUILD room",
+      "ok": true,
+      "note": ""
+    },
+    {
+      "id": "T03 create STORY room",
+      "ok": true,
+      "note": ""
+    },
+    {
+      "id": "T03 create CRUCIBLE room",
+      "ok": true,
+      "note": ""
+    },
+    {
+      "id": "T39 Story movement + world messages",
+      "ok": true,
+      "note": ""
+    },
+    {
+      "id": "T31/T33 approve child, child reports, task ready for review (GUI)",
+      "ok": true,
+      "note": ""
+    },
+    {
+      "id": "T48 Crucible three distinct role messages (GUI)",
+      "ok": true,
+      "note": ""
+    },
+    {
+      "id": "T18 pause/step/resume controls",
+      "ok": true,
+      "note": ""
+    },
+    {
+      "id": "Observatory event log + knowledge inspector",
+      "ok": true,
+      "note": "255 rows"
+    },
+    {
+      "id": "Participant view cannot open who-knows-what",
+      "ok": true,
+      "note": ""
+    },
+    {
+      "id": "T08 keyboard focus reachable",
+      "ok": true,
+      "note": "BUTTON"
+    },
+    {
+      "id": "T10/T61 relaunch after forced stop retains rooms + messages",
+      "ok": true,
+      "note": ""
+    },
+    {
+      "id": "Clean exit on window close",
+      "ok": true,
+      "note": ""
+    },
+    {
+      "id": "No uncaught page errors",
+      "ok": true,
+      "note": ""
+    }
+  ]
+}

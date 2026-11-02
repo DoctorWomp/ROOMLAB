@@ -1,0 +1,289 @@
+{
+  "$id": "https://roomlab.local/contracts/agent_v1.schema.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "additionalProperties": false,
+  "definitions": {
+    "ActionKind": {
+      "enum": [
+        "LOOK",
+        "INSPECT",
+        "MOVE",
+        "SPEAK",
+        "WHISPER",
+        "TAKE",
+        "DROP",
+        "USE",
+        "WAIT",
+        "ASK",
+        "REQUEST_SPAWN",
+        "NO_OP",
+        "SUMMON",
+        "TOOL",
+        "REPORT_PROGRESS",
+        "REPORT_FINAL",
+        "ASK_PARENT",
+        "ASSIGN_TASK",
+        "UPDATE_TASK"
+      ],
+      "type": "string"
+    },
+    "AutonomySpec": {
+      "additionalProperties": false,
+      "properties": {
+        "allowed_actions": {
+          "items": {
+            "$ref": "#/definitions/ActionKind"
+          },
+          "type": "array"
+        },
+        "may_choose_silence": {
+          "type": "boolean"
+        },
+        "may_propose_new_goals": {
+          "type": "boolean"
+        },
+        "policy": {
+          "description": "EVENT_DRIVEN | ON_MENTION | SCRIPTED",
+          "type": "string"
+        }
+      },
+      "required": [
+        "allowed_actions",
+        "may_choose_silence",
+        "may_propose_new_goals",
+        "policy"
+      ],
+      "type": "object"
+    },
+    "CharacterSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "belief_update_policy": {
+          "default": "UPDATE_ON_EVIDENCE",
+          "description": "e.g. UPDATE_ON_EVIDENCE | RESISTANT | LOCKED",
+          "type": "string"
+        },
+        "description_detail": {
+          "description": "SPARSE | DETAILED",
+          "type": "string"
+        },
+        "expressive_style": {
+          "type": "string"
+        },
+        "motivation_core": {
+          "type": "string"
+        },
+        "motivation_lock": {
+          "description": "FLEXIBLE | FIXED_FOR_TRIAL",
+          "type": "string"
+        },
+        "role": {
+          "type": "string"
+        },
+        "role_rigidity": {
+          "description": "SOFT | FIRM | STRICT",
+          "type": "string"
+        },
+        "secondary_drives": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "social_axes": {
+          "$ref": "#/definitions/SocialAxes"
+        },
+        "temperament_variance": {
+          "default": 0.0,
+          "format": "float",
+          "type": "number"
+        }
+      },
+      "required": [
+        "description_detail",
+        "expressive_style",
+        "motivation_core",
+        "motivation_lock",
+        "role",
+        "role_rigidity",
+        "secondary_drives",
+        "social_axes"
+      ],
+      "type": "object"
+    },
+    "Cognition": {
+      "description": "Cognition levels (§8.3). Serialized as `L0_SCRIPTED` etc.",
+      "enum": [
+        "L0_SCRIPTED",
+        "L1_REACTIVE",
+        "L2_AGENTIC",
+        "L3_CONTINUOUS"
+      ],
+      "type": "string"
+    },
+    "InitialBelief": {
+      "additionalProperties": false,
+      "properties": {
+        "claim": {
+          "type": "string"
+        },
+        "source_ref": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "claim",
+        "source_ref",
+        "status"
+      ],
+      "type": "object"
+    },
+    "KnowledgeSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "initial_beliefs": {
+          "items": {
+            "$ref": "#/definitions/InitialBelief"
+          },
+          "type": "array"
+        },
+        "private_namespace": {
+          "type": "string"
+        },
+        "readable_mounts": {
+          "description": "Requested mounts. NOT authoritative: the ACL table decides access.",
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "initial_beliefs",
+        "private_namespace",
+        "readable_mounts"
+      ],
+      "type": "object"
+    },
+    "LimitsSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "max_queued_calls": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "turn_output_tokens": {
+          "format": "int64",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "max_queued_calls",
+        "turn_output_tokens"
+      ],
+      "type": "object"
+    },
+    "SocialAxes": {
+      "additionalProperties": false,
+      "properties": {
+        "expressivity": {
+          "format": "float",
+          "type": "number"
+        },
+        "skepticism": {
+          "format": "float",
+          "type": "number"
+        },
+        "sociability": {
+          "format": "float",
+          "type": "number"
+        }
+      },
+      "required": [
+        "expressivity",
+        "skepticism",
+        "sociability"
+      ],
+      "type": "object"
+    },
+    "SomaMode": {
+      "enum": [
+        "OFF",
+        "LIGHT",
+        "STANDARD",
+        "EXPRESSIVE"
+      ],
+      "type": "string"
+    }
+  },
+  "properties": {
+    "agent_id": {
+      "type": "string"
+    },
+    "autonomy": {
+      "$ref": "#/definitions/AutonomySpec"
+    },
+    "character": {
+      "$ref": "#/definitions/CharacterSpec"
+    },
+    "cognition": {
+      "$ref": "#/definitions/Cognition"
+    },
+    "demo_policy": {
+      "default": null,
+      "description": "Deterministic Demo policy id for L0 agents.",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "directive": {
+      "type": "string"
+    },
+    "display_name": {
+      "type": "string"
+    },
+    "icon": {
+      "type": "string"
+    },
+    "knowledge": {
+      "$ref": "#/definitions/KnowledgeSpec"
+    },
+    "limits": {
+      "$ref": "#/definitions/LimitsSpec"
+    },
+    "model_route": {
+      "type": "string"
+    },
+    "persona": {
+      "type": "string"
+    },
+    "schema_version": {
+      "type": "string"
+    },
+    "soma_mode": {
+      "$ref": "#/definitions/SomaMode"
+    }
+  },
+  "required": [
+    "agent_id",
+    "autonomy",
+    "character",
+    "cognition",
+    "directive",
+    "display_name",
+    "icon",
+    "knowledge",
+    "limits",
+    "model_route",
+    "persona",
+    "schema_version",
+    "soma_mode"
+  ],
+  "title": "AgentProfile",
+  "type": "object",
+  "x-schema-version": "1.0"
+}

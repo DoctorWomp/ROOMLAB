@@ -1,0 +1,185 @@
+{
+  "$id": "https://roomlab.local/contracts/experiment_v1.schema.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "additionalProperties": false,
+  "definitions": {
+    "ConditionSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "arm": {
+          "type": "string"
+        },
+        "key": {
+          "type": "string"
+        },
+        "value": true
+      },
+      "required": [
+        "arm",
+        "key",
+        "value"
+      ],
+      "type": "object"
+    },
+    "ProviderKind": {
+      "enum": [
+        "DEMO",
+        "LOCAL_CONNECTED",
+        "MANAGED_LOCAL",
+        "CLOUD_OPT_IN"
+      ],
+      "type": "string"
+    },
+    "RouteSnapshot": {
+      "additionalProperties": false,
+      "properties": {
+        "endpoint_host": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "model_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "provider_kind": {
+          "$ref": "#/definitions/ProviderKind"
+        },
+        "route_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "provider_kind",
+        "route_id"
+      ],
+      "type": "object"
+    },
+    "RunBudgets": {
+      "additionalProperties": false,
+      "properties": {
+        "agent_turns": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "max_chain_depth": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "output_tokens": {
+          "format": "int64",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "agent_turns",
+        "max_chain_depth",
+        "output_tokens"
+      ],
+      "type": "object"
+    },
+    "RunMode": {
+      "enum": [
+        "LIVE",
+        "PLAYBACK",
+        "FORK",
+        "RERUN"
+      ],
+      "type": "string"
+    },
+    "SessionType": {
+      "enum": [
+        "SANDBOX",
+        "CONTROLLED_TRIAL"
+      ],
+      "type": "string"
+    },
+    "SpawnPolicy": {
+      "enum": [
+        "DISABLED",
+        "APPROVAL_REQUIRED",
+        "UNIVERSAL_CAPPED",
+        "DELEGATED",
+        "WORLD_GATED"
+      ],
+      "type": "string"
+    }
+  },
+  "properties": {
+    "app_version": {
+      "type": "string"
+    },
+    "budgets": {
+      "$ref": "#/definitions/RunBudgets"
+    },
+    "conditions": {
+      "items": {
+        "$ref": "#/definitions/ConditionSpec"
+      },
+      "type": "array"
+    },
+    "created_at": {
+      "type": "string"
+    },
+    "mode": {
+      "$ref": "#/definitions/RunMode"
+    },
+    "model_routes": {
+      "items": {
+        "$ref": "#/definitions/RouteSnapshot"
+      },
+      "type": "array"
+    },
+    "name": {
+      "type": "string"
+    },
+    "parent_run_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "run_id": {
+      "type": "string"
+    },
+    "scenario_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "schema_version": {
+      "type": "string"
+    },
+    "seed": {
+      "format": "int64",
+      "type": "integer"
+    },
+    "session_type": {
+      "$ref": "#/definitions/SessionType"
+    },
+    "spawn_policy": {
+      "$ref": "#/definitions/SpawnPolicy"
+    }
+  },
+  "required": [
+    "app_version",
+    "budgets",
+    "conditions",
+    "created_at",
+    "mode",
+    "model_routes",
+    "name",
+    "run_id",
+    "schema_version",
+    "seed",
+    "session_type",
+    "spawn_policy"
+  ],
+  "title": "RunManifest",
+  "type": "object",
+  "x-schema-version": "1.0"
+}

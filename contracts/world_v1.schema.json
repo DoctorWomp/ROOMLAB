@@ -1,0 +1,343 @@
+{
+  "$id": "https://roomlab.local/contracts/world_v1.schema.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "additionalProperties": false,
+  "definitions": {
+    "AmbientSound": {
+      "additionalProperties": false,
+      "properties": {
+        "description": {
+          "type": "string"
+        },
+        "hidden_source": {
+          "description": "Hidden cause; operator truth only.",
+          "type": "string"
+        },
+        "location": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "description",
+        "hidden_source",
+        "location"
+      ],
+      "type": "object"
+    },
+    "HiddenEdge": {
+      "additionalProperties": false,
+      "properties": {
+        "discover_dc": {
+          "description": "d20 difficulty for discovery via INSPECT in `from`.",
+          "format": "int64",
+          "type": "integer"
+        },
+        "door_object_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "from": {
+          "type": "string"
+        },
+        "known_by": {
+          "default": [],
+          "description": "Identities that already know this passage (authored private knowledge).",
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "to": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "discover_dc",
+        "from",
+        "to"
+      ],
+      "type": "object"
+    },
+    "SecretFact": {
+      "additionalProperties": false,
+      "properties": {
+        "claim": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "owner_scope": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "claim",
+        "id",
+        "owner_scope"
+      ],
+      "type": "object"
+    },
+    "TraceSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "cue": {
+          "description": "What an observer perceives (no attribution of who caused it).",
+          "type": "string"
+        },
+        "feature_id": {
+          "type": "string"
+        },
+        "state": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "cue",
+        "feature_id",
+        "state"
+      ],
+      "type": "object"
+    },
+    "WorldCharacter": {
+      "additionalProperties": false,
+      "properties": {
+        "abilities": {
+          "default": [],
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "agent_id": {
+          "type": "string"
+        },
+        "inventory": {
+          "default": [],
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "location": {
+          "type": "string"
+        },
+        "perception": {
+          "default": 0,
+          "description": "Perception bonus applied to observation checks.",
+          "format": "int64",
+          "type": "integer"
+        },
+        "spell_slots": {
+          "default": 0,
+          "format": "int64",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "agent_id",
+        "location"
+      ],
+      "type": "object"
+    },
+    "WorldLocation": {
+      "additionalProperties": false,
+      "properties": {
+        "ambient": {
+          "type": "string"
+        },
+        "description": {
+          "default": "",
+          "type": "string"
+        },
+        "exits": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "ambient",
+        "exits",
+        "id",
+        "name"
+      ],
+      "type": "object"
+    },
+    "WorldObject": {
+      "additionalProperties": false,
+      "properties": {
+        "description": {
+          "default": "",
+          "type": "string"
+        },
+        "found_with": {
+          "default": null,
+          "description": "Inspecting this other object reveals a NOTICEABLE_IF_INSPECTED object (e.g. map on shelf).",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "id": {
+          "type": "string"
+        },
+        "kind": {
+          "description": "DOCUMENT | DOOR | ITEM | FEATURE",
+          "type": "string"
+        },
+        "known_by": {
+          "default": [],
+          "description": "Identities that already know where this object is (authored private knowledge).",
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "location": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "notice_dc": {
+          "default": null,
+          "description": "For FEATURE objects: d20 difficulty for noticing their current state on arrival.",
+          "format": "int64",
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "state": {
+          "default": "",
+          "type": "string"
+        },
+        "takeable": {
+          "default": false,
+          "type": "boolean"
+        },
+        "trace_on_take": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/TraceSpec"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "When this object is taken, set `feature_id`'s state (e.g. a clean rectangle in dust)."
+        },
+        "unlocks": {
+          "default": null,
+          "description": "For keys: the door id this unlocks.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "visibility": {
+          "description": "VISIBLE | NOTICEABLE_IF_INSPECTED | HIDDEN",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "kind",
+        "location",
+        "name",
+        "visibility"
+      ],
+      "type": "object"
+    }
+  },
+  "properties": {
+    "characters": {
+      "items": {
+        "$ref": "#/definitions/WorldCharacter"
+      },
+      "type": "array"
+    },
+    "genre": {
+      "type": "string"
+    },
+    "hidden_edges": {
+      "default": [],
+      "items": {
+        "$ref": "#/definitions/HiddenEdge"
+      },
+      "type": "array"
+    },
+    "inventory_capacity": {
+      "default": 4,
+      "format": "int64",
+      "type": "integer"
+    },
+    "locations": {
+      "items": {
+        "$ref": "#/definitions/WorldLocation"
+      },
+      "type": "array"
+    },
+    "objects": {
+      "items": {
+        "$ref": "#/definitions/WorldObject"
+      },
+      "type": "array"
+    },
+    "schema_version": {
+      "type": "string"
+    },
+    "secret_facts": {
+      "default": [],
+      "items": {
+        "$ref": "#/definitions/SecretFact"
+      },
+      "type": "array"
+    },
+    "seed": {
+      "format": "int64",
+      "type": "integer"
+    },
+    "sounds": {
+      "default": [],
+      "items": {
+        "$ref": "#/definitions/AmbientSound"
+      },
+      "type": "array"
+    },
+    "start_location": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "world_id": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "characters",
+    "genre",
+    "locations",
+    "objects",
+    "schema_version",
+    "seed",
+    "start_location",
+    "title",
+    "world_id"
+  ],
+  "title": "WorldSpec",
+  "type": "object",
+  "x-schema-version": "1.0"
+}

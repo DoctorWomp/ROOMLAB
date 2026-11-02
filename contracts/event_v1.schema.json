@@ -1,0 +1,146 @@
+{
+  "$id": "https://roomlab.local/contracts/event_v1.schema.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "additionalProperties": false,
+  "definitions": {
+    "AudienceScope": {
+      "enum": [
+        "ROOM_MEMBERS",
+        "DIRECT",
+        "PARENT_ONLY",
+        "LOCATION",
+        "OPERATOR_ONLY",
+        "ACTOR_ONLY",
+        "PUBLIC"
+      ],
+      "type": "string"
+    },
+    "EventType": {
+      "enum": [
+        "RUN_CREATED",
+        "ROOM_CREATED",
+        "AGENT_CREATED",
+        "AGENT_UPDATED",
+        "AGENT_STATUS_CHANGED",
+        "MEMBERSHIP_CHANGED",
+        "MESSAGE_DELIVERED",
+        "ACTION_EXECUTED",
+        "ACTION_REJECTED",
+        "WORLD_STATE_CHANGED",
+        "NARRATION",
+        "TURN_OUTCOME",
+        "JOB_QUEUED",
+        "JOB_FINISHED",
+        "INFERENCE_COMPLETED",
+        "INFERENCE_FAILED",
+        "SPAWN_STATE_CHANGED",
+        "TASK_UPDATED",
+        "ORG_CHANGED",
+        "KNOWLEDGE_ADDED",
+        "ACL_CHANGED",
+        "TOOL_RESULT",
+        "INTERVENTION",
+        "RUN_PAUSED",
+        "RUN_RESUMED",
+        "RUN_STEPPED",
+        "INTENT_SEALED",
+        "INTENT_REVEALED",
+        "CRUCIBLE_ROUND",
+        "PROVIDER_STATUS",
+        "VIEW_ROLE_CHANGED",
+        "ATTACHMENT_ADDED",
+        "SETTINGS_CHANGED",
+        "SYSTEM_NOTICE",
+        "BELIEF_UPDATED"
+      ],
+      "type": "string"
+    },
+    "Origin": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "kind": {
+          "$ref": "#/definitions/OriginKind"
+        }
+      },
+      "required": [
+        "id",
+        "kind"
+      ],
+      "type": "object"
+    },
+    "OriginKind": {
+      "enum": [
+        "HUMAN",
+        "AGENT",
+        "NARRATOR",
+        "WORLD",
+        "TOOL",
+        "SYSTEM"
+      ],
+      "type": "string"
+    }
+  },
+  "properties": {
+    "audience_scope": {
+      "$ref": "#/definitions/AudienceScope"
+    },
+    "event_id": {
+      "type": "string"
+    },
+    "event_type": {
+      "$ref": "#/definitions/EventType"
+    },
+    "origin": {
+      "$ref": "#/definitions/Origin"
+    },
+    "parent_event_ids": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "payload": true,
+    "room_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "run_id": {
+      "type": "string"
+    },
+    "schema_version": {
+      "type": "string"
+    },
+    "seq": {
+      "format": "int64",
+      "type": "integer"
+    },
+    "sim_time_ms": {
+      "format": "int64",
+      "type": "integer"
+    },
+    "wall_time_utc": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "audience_scope",
+    "event_id",
+    "event_type",
+    "origin",
+    "parent_event_ids",
+    "payload",
+    "run_id",
+    "schema_version",
+    "seq",
+    "sim_time_ms",
+    "wall_time_utc"
+  ],
+  "title": "EventEnvelope",
+  "type": "object",
+  "x-schema-version": "1.0"
+}
